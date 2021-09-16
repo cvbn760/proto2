@@ -1,0 +1,16 @@
+syntax = "proto2";
+option java_package = "com.protobuf.test";
+option java_outer_classname = "UserSerializer";
+
+message Model {
+
+  required string firstName = 1;
+  required string lastName = 2;
+  required int32 age = 3;
+  required int64 telNumber = 4;
+  required float weight = 5;
+  required float height = 6;
+  required string password = 7;
+
+  repeated string roles = 8;
+}

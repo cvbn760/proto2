@@ -1,0 +1,32 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/users/**"  use-expressions="true" name="usersFilter" create-session="stateless">
+        <http-basic/>
+        <intercept-url pattern="/**/auth/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/adm/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**/anon/**" access="hasRole('ROLE_ANONIMUS')"/>
+        <intercept-url pattern="/**/all/**" access="hasRole('ROLE_ANONIMUS')"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <http>
+        <form-login login-page="/login" default-target-url="/rest"
+                    authentication-failure-url="/login?error=true"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/index.html" logout-url="/logout" />
+        <csrf disabled="true"/>
+    </http>
+
+    <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
