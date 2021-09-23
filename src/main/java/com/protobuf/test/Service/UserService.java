@@ -1,18 +1,11 @@
 package com.protobuf.test.Service;
 
-
-import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.protobuf.test.Model.Role;
 import com.protobuf.test.Model.User;
 import com.protobuf.test.Repository.UserRepository;
-
 import com.protobuf.test.util.AuthorizedUser;
-
 import com.protobuf.test.util.ProtoUtil;
-import com.protobuf.test.util.SecurityUtil;
-import com.protobuf.test.util.UserSerializer;
 import lombok.SneakyThrows;
+import net.jarlehansen.protobuf.javame.original.input.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,12 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
 
 @Service("userService")
 public class UserService implements UserDetailsService {

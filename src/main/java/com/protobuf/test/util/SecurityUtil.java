@@ -28,6 +28,7 @@ public class SecurityUtil {
                 throw new AccessDeniedException("Anonymous cannot edit other people's accounts ...");
             }
             // Если аноним и у сохраняемого пользователя нет id то можно сохранить
+
             return true;
         }
         else {

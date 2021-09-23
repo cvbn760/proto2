@@ -1,23 +1,22 @@
 package com.protobuf.test.util;
 
-import com.protobuf.test.Model.Role;
 import com.protobuf.test.Model.User;
 import lombok.SneakyThrows;
 
-import java.util.stream.Collectors;
+import java.io.IOException;
 
 public class ProtoUtil {
 
-    // Сериализация
-    private static byte[] serial(User user){
-        UserSerializer.Model.Builder builder = UserSerializer.Model.newBuilder();
+//    // Сериализация
+    private static byte[] serial(User user) throws IOException {
+        UserSerializer.Builder builder = UserSerializer.newBuilder();
         builder.setFirstName(user.getFirstName()).setLastName(user.getLastName())
                 .setAge(user.getAge()).setHeight(user.getHeight()).setWeight(user.getWeight())
                 .setPassword(user.getPassword()).setTelNumber(user.getTelNumber());
 
-        user.getRoleSet().forEach(role -> builder.addRoles(role.toString()));
+        user.getRoleSet().forEach(role -> builder.addElementRoles(role.toString()));
 
-        UserSerializer.Model userSer = builder.build();
+        UserSerializer userSer = builder.build();
 
         return userSer.toByteArray();
     }
@@ -28,7 +27,7 @@ public class ProtoUtil {
     public static User deser(byte[] protoData) {
         User fullUser = new User();
 
-        UserSerializer.Model userProto = UserSerializer.Model.parseFrom(protoData);
+        UserSerializer userProto = UserSerializer.parseFrom(protoData);
         fullUser.setFirstName(userProto.getFirstName());
         fullUser.setLastName(userProto.getLastName());
         fullUser.setAge(userProto.getAge());
@@ -36,7 +35,7 @@ public class ProtoUtil {
         fullUser.setWeight(userProto.getWeight());
         fullUser.setPassword(userProto.getPassword());
         fullUser.setTelNumber(userProto.getTelNumber());
-        fullUser.setRoleSet((userProto.getRolesList().stream().map(Role::valueOf).collect(Collectors.toSet())));
+        fullUser.setRoleSet(userProto.getRoles());
         fullUser.setProtoData(protoData);
         return fullUser;
     }

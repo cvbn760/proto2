@@ -1,14 +1,12 @@
 package com.protobuf.test.controllers;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.protobuf.test.Model.User;
 import com.protobuf.test.Service.UserService;
 import com.protobuf.test.util.SecurityUtil;
+import net.jarlehansen.protobuf.javame.original.input.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 import java.util.List;
 
 @RestController

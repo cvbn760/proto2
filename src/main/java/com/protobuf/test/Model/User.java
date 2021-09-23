@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.Vector;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "id"}, name = "users_idx")})
@@ -63,7 +64,7 @@ public class User {
         return roles;
     }
 
-    public void setRoleSet(Set<Role> roleSet) {
+    public void setRoleSet(Vector roleSet) {
         this.roles = CollectionUtils.isEmpty(roleSet) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roleSet);
     }
 
